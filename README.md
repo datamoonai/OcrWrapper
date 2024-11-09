@@ -16,11 +16,8 @@ Before you begin, ensure you have the following installed:
    Install-Package pythonnet
 
 
-YourProject/
-└── bin/
-    └── x64/
-        └── Debug/
-            ├── YourProject.exe
-            ├── OCREngine/
-            │   ├── finder.cp310-win_amd64.pyd
-            │   └── constants.json
+\bin\x64\Debug\
+............... YourProject.exe
+............... OCREngine\
+............... finder.cp310-win_amd64.pyd
+............... constants.json
