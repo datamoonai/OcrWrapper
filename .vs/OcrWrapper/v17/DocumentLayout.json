@@ -15,12 +15,6 @@
     },
     {
       "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|OcrWrapper||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5FCC3B00-6F13-4DA7-9A36-65ADD07C6126}|Test\\Test.csproj|c:\\users\\datamoon\\source\\repos\\ocrwrapper\\test\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|a54ad834-9219-4aa6-b589-607af21c3e26"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6C8A9A56-67AC-4C50-8AEC-05E6DD360673}|OcrWrapper\\OcrWrapper.csproj|c:\\users\\datamoon\\source\\repos\\ocrwrapper\\ocrwrapper\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|a54ad834-9219-4aa6-b589-607af21c3e26"
     }
   ],
   "DocumentGroupContainers": [
@@ -45,8 +39,7 @@
               "ToolTip": "C:\\Users\\Datamoon\\source\\repos\\OcrWrapper\\OcrWrapper\\OcrWrapper.csproj",
               "RelativeToolTip": "OcrWrapper\\OcrWrapper.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-11-09T11:40:43.432Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-09T11:40:43.432Z"
             },
             {
               "$type": "Document",
@@ -57,8 +50,7 @@
               "ToolTip": "C:\\Users\\Datamoon\\source\\repos\\OcrWrapper\\Test\\Test.csproj",
               "RelativeToolTip": "Test\\Test.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-11-03T15:33:06.513Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-03T15:33:06.513Z"
             },
             {
               "$type": "Document",
@@ -68,7 +60,7 @@
               "RelativeDocumentMoniker": "Test\\Program.cs",
               "ToolTip": "C:\\Users\\Datamoon\\source\\repos\\OcrWrapper\\Test\\Program.cs",
               "RelativeToolTip": "Test\\Program.cs",
-              "ViewState": "AQIAAAIAAAAAAAAAAADwvxAAAABzAAAA",
+              "ViewState": "AQIAAAIAAAAAAAAAAADwvxEAAACsBgAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-03T14:44:52.002Z",
               "EditorCaption": ""
@@ -81,7 +73,7 @@
               "RelativeDocumentMoniker": "OcrWrapper\\OcrWrapper.cs",
               "ToolTip": "C:\\Users\\Datamoon\\source\\repos\\OcrWrapper\\OcrWrapper\\OcrWrapper.cs",
               "RelativeToolTip": "OcrWrapper\\OcrWrapper.cs",
-              "ViewState": "AQIAAEkAAAAAAAAAAAAmwBMAAAAqAAAA",
+              "ViewState": "AQIAAGwAAAAAAAAAAAAUwI0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-03T14:37:02.588Z",
               "EditorCaption": ""

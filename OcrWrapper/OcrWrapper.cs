@@ -106,5 +106,42 @@ public class OcrWrapper
             return result;
         }
     }
+
+    public PyObject OCR(int width, int height, int stride, IntPtr ptr)
+    {
+        // Create a byte array to hold BGR values
+        byte[] pixelData = new byte[width * height * 3];
+
+        // Copy the pixel data to the byte array and convert to BGR format
+        unsafe
+        {
+            byte* ptrByte = (byte*)ptr;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    int offset = (y * stride) + (x * 3);
+                    pixelData[(y * width + x) * 3] = ptrByte[offset]; // Blue
+                    pixelData[(y * width + x) * 3 + 1] = ptrByte[offset + 1]; // Green
+                    pixelData[(y * width + x) * 3 + 2] = ptrByte[offset + 2]; // Red
+                }
+            }
+        }
+
+        // Create a NumPy array from the pixel data
+        dynamic numpyArray = _np.frombuffer(pixelData, dtype: _np.uint8);
+
+        //numpyArray = numpyArray[:, :, ::- 1];
+        //Console.WriteLine("This part of code " + (DateTime.Now - dt).TotalMilliseconds);
+
+        numpyArray = numpyArray.reshape(height, width, 3); // Reshape to (height, width, 3)
+
+        using (Py.GIL())
+        {
+            PyObject result = _finder.finder.ocr_bgr(numpyArray);
+
+            return result;
+        }
+    }
 }
 
