@@ -90,6 +90,11 @@ public class OcrWrapper
         // Unlock the bits
         bitmap.UnlockBits(bmpData);
 
+        return OCRBGR(width, height, pixelData);
+    }
+
+    PyObject OCRBGR(int width, int height, byte[] pixelData)
+    {
         // Create a NumPy array from the pixel data
         dynamic numpyArray = _np.frombuffer(pixelData, dtype: _np.uint8);
 
@@ -106,7 +111,6 @@ public class OcrWrapper
             return result;
         }
     }
-
     public PyObject OCR(int width, int height, int stride, IntPtr ptr)
     {
         // Create a byte array to hold BGR values
@@ -128,20 +132,7 @@ public class OcrWrapper
             }
         }
 
-        // Create a NumPy array from the pixel data
-        dynamic numpyArray = _np.frombuffer(pixelData, dtype: _np.uint8);
-
-        //numpyArray = numpyArray[:, :, ::- 1];
-        //Console.WriteLine("This part of code " + (DateTime.Now - dt).TotalMilliseconds);
-
-        numpyArray = numpyArray.reshape(height, width, 3); // Reshape to (height, width, 3)
-
-        using (Py.GIL())
-        {
-            PyObject result = _finder.finder.ocr_bgr(numpyArray);
-
-            return result;
-        }
+        return OCRBGR(width, height, pixelData);
     }
 }
 
