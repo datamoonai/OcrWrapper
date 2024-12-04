@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 using Microsoft.Scripting.Runtime;
 using Python.Runtime;
 
@@ -80,18 +81,13 @@ public class OcrWrapper
 
     public PyObject OCR(int width, int height, int stride, IntPtr ptr)
     {
-        // Calculate the total length of the byte array
-        int length = height * stride;
-        byte[] bgrBytes = new byte[length];
-        Marshal.Copy(ptr, bgrBytes, 0, length);
-
         using (Py.GIL())
         {
-
-            PyObject result = _finder.ocr_bgr(width, height, stride, bgrBytes);
+            PyObject result = _finder.ocr_bgr(width, height, stride, ptr.ToInt64());
 
             return result;
         }
+
     }
 }
 
