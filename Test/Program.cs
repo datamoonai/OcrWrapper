@@ -19,14 +19,16 @@ class Program
         //OcrWrapper ocrWrapper2 = new OcrWrapper(pythonHome, pythonDLL, customLibPath);
 
         // با استفاده از این تابع نتیجه را دریافت کنیم
-        string imagePath = @"test.jpg"; // Change this to your JPG file path
-        using (Bitmap bitmap = new Bitmap(imagePath))
+        for (int i = 0; i < 100; i++)
         {
-            for(int i = 0; i < 10;i++)
+            string imagePath = @"europe.png"; // Change this to your JPG file path
+            //File.Copy(imagePath, Path.Combine("tests", imagePath.Replace(".jpg", i + ".jpg")),true);
+            using (Bitmap bitmap = new Bitmap(imagePath))
             {
+
                 Console.WriteLine(ocrWrapper.OCR(bitmap));
             }
-                
+
         }
 
         Console.ReadKey();

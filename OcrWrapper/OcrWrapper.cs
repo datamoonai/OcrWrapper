@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Runtime.InteropServices;
+using Microsoft.Scripting.Runtime;
 using Python.Runtime;
 
 public class OcrWrapper
@@ -58,9 +60,6 @@ public class OcrWrapper
         int width = bitmap.Width;
         int height = bitmap.Height;
 
-        // Create a byte array to hold BGR values
-        byte[] pixelData = new byte[width * height * 3];
-
         // Lock the bits of the bitmap
         Rectangle rect = new Rectangle(0, 0, width, height);
         BitmapData bmpData = bitmap.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
@@ -71,68 +70,28 @@ public class OcrWrapper
         // Get the stride of the bitmap
         int stride = bmpData.Stride;
 
-        // Copy the pixel data to the byte array and convert to BGR format
-        unsafe
-        {
-            byte* ptrByte = (byte*)ptr;
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    int offset = (y * stride) + (x * 3);
-                    pixelData[(y * width + x) * 3] = ptrByte[offset]; // Blue
-                    pixelData[(y * width + x) * 3 + 1] = ptrByte[offset + 1]; // Green
-                    pixelData[(y * width + x) * 3 + 2] = ptrByte[offset + 2]; // Red
-                }
-            }
-        }
+        PyObject result = OCR(width, height, stride, ptr);
 
-        // Unlock the bits
         bitmap.UnlockBits(bmpData);
 
-        return OCRBGR(width, height, pixelData);
+        return result;
+
     }
 
-    PyObject OCRBGR(int width, int height, byte[] pixelData)
+    public PyObject OCR(int width, int height, int stride, IntPtr ptr)
     {
-        // Create a NumPy array from the pixel data
-        dynamic numpyArray = _np.frombuffer(pixelData, dtype: _np.uint8);
-
-        //numpyArray = numpyArray[:, :, ::- 1];
-        //Console.WriteLine("This part of code " + (DateTime.Now - dt).TotalMilliseconds);
-
-        numpyArray = numpyArray.reshape(height, width, 3); // Reshape to (height, width, 3)
+        // Calculate the total length of the byte array
+        int length = height * stride;
+        byte[] bgrBytes = new byte[length];
+        Marshal.Copy(ptr, bgrBytes, 0, length);
 
         using (Py.GIL())
         {
-            PyObject result = _finder.finder.ocr_bgr(numpyArray);
-            //Console.WriteLine("Second part of code " + (DateTime.Now - dt).TotalMilliseconds);
+
+            PyObject result = _finder.ocr_bgr(width, height, stride, bgrBytes);
 
             return result;
         }
-    }
-    public PyObject OCR(int width, int height, int stride, IntPtr ptr)
-    {
-        // Create a byte array to hold BGR values
-        byte[] pixelData = new byte[width * height * 3];
-
-        // Copy the pixel data to the byte array and convert to BGR format
-        unsafe
-        {
-            byte* ptrByte = (byte*)ptr;
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    int offset = (y * stride) + (x * 3);
-                    pixelData[(y * width + x) * 3] = ptrByte[offset]; // Blue
-                    pixelData[(y * width + x) * 3 + 1] = ptrByte[offset + 1]; // Green
-                    pixelData[(y * width + x) * 3 + 2] = ptrByte[offset + 2]; // Red
-                }
-            }
-        }
-
-        return OCRBGR(width, height, pixelData);
     }
 }
 
